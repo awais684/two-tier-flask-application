@@ -4,22 +4,23 @@ FROM python:3.9-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# install required packages for system
+# Install system dependencies (only update, no upgrade)
 RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y gcc default-libmysqlclient-dev pkg-config \
+    && apt-get install -y --no-install-recommends \
+       gcc \
+       default-libmysqlclient-dev \
+       pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy the requirements file into the container
+# Copy requirements first (to leverage Docker cache)
 COPY requirements.txt .
 
-# Install app dependencies
-RUN pip install mysqlclient
+# Install dependencies in one step (mysqlclient will be covered if it's in requirements.txt)
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code
+# Copy the rest of the application
 COPY . .
 
-# Specify the command to run your application
+# Default command
 CMD ["python", "app.py"]
 
