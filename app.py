@@ -25,6 +25,35 @@ app.config['MYSQL_DB'] = os.environ.get('MYSQL_DB', 'default_db')
 # app.config['MYSQL_PASSWORD'] = get_ssm_parameter('/myapp/db/MYSQL_PASSWORD')
 # app.config['MYSQL_DB'] = get_ssm_parameter('/myapp/db/MYSQL_DB')
 
+#---------------------------------------------------------------------------------------
+
+# import boto3
+# import json
+
+# def get_secret(secret_name, region_name='us-east-1'):
+#     """
+#     Fetch a secret value from AWS Secrets Manager.
+#     The secret should be stored as a JSON object, e.g.:
+#     {
+#         "MYSQL_HOST": "your-db-host",
+#         "MYSQL_USER": "your-username",
+#         "MYSQL_PASSWORD": "your-password",
+#         "MYSQL_DB": "your-database"
+#     }
+#     """
+#     client = boto3.client('secretsmanager', region_name=region_name)
+#     response = client.get_secret_value(SecretId=secret_name)
+#     secret_string = response['SecretString']
+#     return json.loads(secret_string)
+
+# # Fetch secret and assign values to Flask config
+# secret_data = get_secret('myapp/db/credentials')
+
+# app.config['MYSQL_HOST'] = secret_data['MYSQL_HOST']
+# app.config['MYSQL_USER'] = secret_data['MYSQL_USER']
+# app.config['MYSQL_PASSWORD'] = secret_data['MYSQL_PASSWORD']
+# app.config['MYSQL_DB'] = secret_data['MYSQL_DB']
+
 
 
 # Initialize MySQL
