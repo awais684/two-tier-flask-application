@@ -10,6 +10,23 @@ app.config['MYSQL_USER'] = os.environ.get('MYSQL_USER', 'default_user')
 app.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD', 'default_password')
 app.config['MYSQL_DB'] = os.environ.get('MYSQL_DB', 'default_db')
 
+
+
+# import boto3
+
+# def get_ssm_parameter(name, with_decryption=True):
+#     ssm = boto3.client('ssm', region_name='us-east-1')  # ✅ match your region
+#     response = ssm.get_parameter(Name=name, WithDecryption=with_decryption)
+#     return response['Parameter']['Value']
+
+# # Fetch DB config from Parameter Store
+# app.config['MYSQL_HOST'] = get_ssm_parameter('/myapp/db/MYSQL_HOST')
+# app.config['MYSQL_USER'] = get_ssm_parameter('/myapp/db/MYSQL_USER')
+# app.config['MYSQL_PASSWORD'] = get_ssm_parameter('/myapp/db/MYSQL_PASSWORD')
+# app.config['MYSQL_DB'] = get_ssm_parameter('/myapp/db/MYSQL_DB')
+
+
+
 # Initialize MySQL
 mysql = MySQL(app)
 
